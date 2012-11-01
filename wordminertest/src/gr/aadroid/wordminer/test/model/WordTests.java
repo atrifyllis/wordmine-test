@@ -7,6 +7,7 @@ import gr.aadroid.wordminer.model.Cell;
 import gr.aadroid.wordminer.model.DefaultCell;
 import gr.aadroid.wordminer.model.Position;
 import gr.aadroid.wordminer.model.Word;
+import gr.aadroid.wordminer.service.DictionaryService;
 import android.test.ActivityInstrumentationTestCase2;
 
 public class WordTests extends ActivityInstrumentationTestCase2<WordMinerGame> {
@@ -42,4 +43,21 @@ public class WordTests extends ActivityInstrumentationTestCase2<WordMinerGame> {
 		int positionOfCellInWord = wordToTest.findCell(cell_0_1_epsilon);
 		assertEquals(1, positionOfCellInWord);
 	}
+
+	public void testFindCellWhenCellNotInWord() {
+		Cell cell_1_1_alfa = new DefaultCell(new Position(1, 1), "Α", 0);
+		int positionOfCell = wordToTest.findCell(cell_1_1_alfa);
+		assertEquals(-1, positionOfCell);
+	}
+
+	public void testGetCellAt() {
+		Cell retrievedCell = wordToTest.getCellAt(1);
+		assertEquals("Ε", retrievedCell.getLetter());
+	}
+
+	public void testGetCellAtIndexOutOfBounds() {
+		Cell retrievedCell = wordToTest.getCellAt(5);
+		assertNull(retrievedCell);
+	}
+
 }
